@@ -22,6 +22,10 @@ import kotlinx.android.synthetic.main.fragment_academy.view.*
  */
 class AcademyFragment : Fragment() {
 
+    companion object {
+        const val STUDENT = "student"
+    }
+
     private val studentsList = mutableListOf<Student>()
     private  lateinit var studentAdapter: StudentAdapter
 
@@ -35,7 +39,7 @@ class AcademyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         studentAdapter = StudentAdapter(studentsList) {student ->
             val toStudentDetail = Intent(context, StudentDetailActivity::class.java)
-            toStudentDetail.putExtra("student", student)
+            toStudentDetail.putExtra(STUDENT, student)
             startActivity(toStudentDetail)
         }
 
