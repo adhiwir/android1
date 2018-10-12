@@ -1,6 +1,7 @@
 package com.example.adhi.fragment.ui.fragment
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 
 import com.example.adhi.fragment.R
 import com.example.adhi.fragment.model.Student
+import com.example.adhi.fragment.ui.activity.StudentDetailActivity
 import com.example.adhi.fragment.ui.adapter.StudentAdapter
 import kotlinx.android.synthetic.main.fragment_academy.view.*
 
@@ -31,7 +33,11 @@ class AcademyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        studentAdapter = StudentAdapter(studentsList)
+        studentAdapter = StudentAdapter(studentsList) {student ->
+            val toStudentDetail = Intent(context, StudentDetailActivity::class.java)
+            toStudentDetail.putExtra("student", student)
+            startActivity(toStudentDetail)
+        }
 
         /**
          * layout manager :

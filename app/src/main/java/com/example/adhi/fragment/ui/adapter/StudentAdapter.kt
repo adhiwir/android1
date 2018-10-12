@@ -8,7 +8,9 @@ import com.example.adhi.fragment.R
 import com.example.adhi.fragment.model.Student
 import kotlinx.android.synthetic.main.item_student.view.*
 
-class StudentAdapter(private val studentList: List<Student>) : RecyclerView.Adapter<StudentAdapter.ViewHolder>() {
+class StudentAdapter(private val studentList: List<Student>,
+                     private  val onClick: (student: Student) -> Unit) : RecyclerView.Adapter<StudentAdapter.ViewHolder>() {
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
         val itemView: View = inflater.inflate(R.layout.item_student, viewGroup, false)
@@ -18,7 +20,11 @@ class StudentAdapter(private val studentList: List<Student>) : RecyclerView.Adap
     override fun getItemCount(): Int = studentList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(studentList[position])
+        val student = studentList[position]
+        holder.bind(student)
+        holder.itemView.setOnClickListener{
+            onClick(student)
+        }
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -28,6 +34,7 @@ class StudentAdapter(private val studentList: List<Student>) : RecyclerView.Adap
             student.imgAvatar?.let {
                 itemView.imgAvatar.setImageResource(it)
             }
+
         }
     }
 }
